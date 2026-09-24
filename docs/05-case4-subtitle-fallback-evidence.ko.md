@@ -57,7 +57,7 @@
 > - If timestamp fetching fails, the app should **silently fall back** to the current behavior.
 > […] Before coding, first tell me what you think my current lyrics pipeline is doing, then add the timestamp feature with minimal changes.
 
-**이 메시지가 전체 사례의 아키텍처 모본이다.** 세 가지 전문적 판단이 한 번에 모두 제시되었고, 순서도 이후 구현과 완전히 일치한다:
+**이 메시지가 전체 사례의 아키텍처 모본이다.** 세 가지 전문적 판단이 한 번에 모두 제시되었고, 순서도 이후 구현과 일치한다:
 1. **비파괴적 증분**("Do NOT rewrite" / "non-destructive enhancement layer") — 폴백 체인이 "교체"가 아니라 "중첩"이 되도록 결정;
 2. **safe to fail + silently fall back** — 각 단계가 예외를 던지지 않고 반드시 `try/catch`로 삼키도록 결정;
 3. **다운그레이드는 실패가 아님**(제4항: 폴백 시에도 가사를 표시하되 자동 스크롤만 끔) — "가사 있음, 타임라인 없음"이 오류가 아니라 **합법적 종료 상태**가 되도록 결정.
@@ -126,7 +126,7 @@
 > I already have a Supadata API key from the free plan. Please proceed with the integration now. Tell me the exact Supabase secret name I need to add for the key.
 > Important: - Do not change my current lyrics/analysis flow - Only add the timestamp transcript layer - If timestamped transcript is available, enable auto-scroll - If not, keep the current behavior unchanged
 
-(사용자가 제3자 계정을 직접 준비; 네 가지 제약이 #207과 완전히 일치 — 20분 전의 제약이 그대로재술됨은 "제약 안정성"의 직접적 증거)
+(사용자가 제3자 계정을 직접 준비; 네 가지 제약이 #207과 일치 — 20분 전의 제약이 그대로재술됨은 "제약 안정성"의 증거)
 
 인접 커밋군(03-22 10:40–10:42, 5분 내 5회) `<G>`:
 `76a34f79`「Add supadata integration」→ `0fb6d97d`「Add Supadata transcript fetch」→ `a6c20cb5`「Add transcript edge function」→ `955cbe0a`/`569e599e`/`189fb8bc`「Add Supadata fetch edge function」
@@ -236,7 +236,7 @@
 > ⚠️ **아카이브 윤리 주석**: #1244 원문에는 평문 API Key가 포함되어 있다. 본 아카이브는 인용 시 마스킹했다. 논문 본문에서 이 항목을 인용할 경우에도 동일하게 마스킹해야 하며, "vibe coding 과정의 자격 증명 유출 리스크" 소재로 활용할 수 있다(사례 3 #1532의 GitHub 토큰 유출과 같은 유형의 표본으로, 총 2건).
 
 **"30초"는 순수한 인간 파라미터이다.** HEAD에서도 여전히 30000ms이다: `<C-supabase/functions/get-youtube-transcript/index.ts:32>`(`timeoutMs = 30000`), `<C-supabase/functions/get-youtube-transcript/index.ts:199>`(`callYtDlpService(youtubeUrl, langPriority, 30000)`), `<C-supabase/functions/analyze-song/index.ts:690>`(`setTimeout(() => controller.abort(), 30000)`).
-> **중요한 반례(검증 완료, 생략 불가)**: #1261에서 AI는 이 타임아웃을 **30s에서 12s로 낮추어** 폴백을 가속하자고 제안했다. 이 제안은 **채택되지도 구현되지도 않았다** — HEAD의 세 곳 모두 여전히 30000이다. 이는 폴백 체인의 시간 예산이 최종적으로 사람에 의해 고정되었고, AI의 성능 최적화 제안이 부결되었음을 보여준다. `<G>`＋`<C>` 이중 증거.
+> **중요한 반례(확인됨, 생략 불가)**: #1261에서 AI는 이 타임아웃을 **30s에서 12s로 낮추어** 폴백을 가속하자고 제안했다. 이 제안은 **채택되지도 구현되지도 않았다** — HEAD의 세 곳 모두 여전히 30000이다. 이는 폴백 체인의 시간 예산이 최종적으로 사람에 의해 고정되었고, AI의 성능 최적화 제안이 부결되었음을 보여준다. `<G>`＋`<C>` 이중 증거.
 
 ---
 
@@ -244,7 +244,7 @@
 `Lovable tool use: Approved. tool_submit:Adding secret(s)` / `Updating secret(s)` ×2
 
 인접 커밋군: `5ecee350`/`f16f31e9`(05-02 14:54) → `79404ec3`/`a6a65976`/`53ef6569`/`4ca201ae`(05-02 15:00–15:01) `<G>`
-`supabase/functions/get-youtube-transcript/index.ts`는 **전체 수명 주기에서 단 1회 커밋, 바로 이날**이다(262행이 한 번에 완성, 이후 3개월간 무수정) `<G>` — 이는 "계약 선행"이 가져온 일회성 정확성의 직접적 정량 증거이다.
+`supabase/functions/get-youtube-transcript/index.ts`는 **전체 수명 주기에서 단 1회 커밋, 바로 이날**이다(262행이 한 번에 완성, 이후 3개월간 무수정) `<G>` — 이는 "계약 선행"이 가져온 일회성 정확성의 정량 표지이다.
 
 ---
 
