@@ -126,7 +126,7 @@
 > I already have a Supadata API key from the free plan. Please proceed with the integration now. Tell me the exact Supabase secret name I need to add for the key.
 > Important: - Do not change my current lyrics/analysis flow - Only add the timestamp transcript layer - If timestamped transcript is available, enable auto-scroll - If not, keep the current behavior unchanged
 
-(사용자가 제3자 계정을 직접 준비; 네 가지 제약이 #207과 일치 — 20분 전의 제약이 그대로재술됨은 "제약 안정성"의 증거)
+(사용자가 제3자 계정을 직접 준비; 네 가지 제약이 #207과 일치 — 20분 전의 제약이 그대로 재술됨은 "제약 안정성"의 증거)
 
 인접 커밋군(03-22 10:40–10:42, 5분 내 5회) `<G>`:
 `76a34f79`「Add supadata integration」→ `0fb6d97d`「Add Supadata transcript fetch」→ `a6c20cb5`「Add transcript edge function」→ `955cbe0a`/`569e599e`/`189fb8bc`「Add Supadata fetch edge function」
